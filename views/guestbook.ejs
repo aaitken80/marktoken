@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+	<script
+		  src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		  crossorigin="anonymous">
+	</script>
+
+<script>
+
+	$(document).ready(function(){
+			jQuery.each( [ "put", "delete" ], function( i, method ) {
+				jQuery[ method ] = function( url, data, callback, type ) {
+					if ( jQuery.isFunction( data ) ) {
+						type = type || callback;
+						callback = data;
+						data = undefined;
+					}
+			
+					return jQuery.ajax({
+						url: url,
+						type: method,
+						dataType: type,
+						data: data,
+						success: callback
+					});
+				};
+			});
+
+			$( ".deleteButton" ).click(function() {
+				$.delete('/guestbook/postcomment', {id:this.value}, function(result){
+					window.location=result;
+				})
+			});
+	});
+
+</script>
+
+  </head>
+  <body>
+
+	<% if ( flash && flash.length > 0 ) { %>
+		<p>Message: <%= flash %> </p>
+	<% } %>
+
+
+	<form action="/guestbook/postcomment" method="POST">
+	  <input type="text" placeholder="name" name="name">
+	  <input type="textarea" placeholder="Please leave a comment" name="comment">
+	  <button type="submit">Submit</button>
+	</form>
+	
+	<ul class="comments">
+		<% for(var i=0; i<comments.length; i++) {%>
+			<li class="quote">
+			  <span><%= comments[i].name %></span>
+			  <span><%= comments[i].comment %></span>
+				<button type="button" class="deleteButton" value="<%= comments[i]._id %>">Delete</button>
+			</li>
+		<% } %>
+	</ul>
+	
+  </body>
+</html>

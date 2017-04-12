@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<link rel='stylesheet' href='/stylesheets/lightbox.css' />
+	
+	
+	<script
+		  src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		  crossorigin="anonymous">
+	</script>
+	
+	<script src="/javascripts/lightbox.js"></script>
+
+  </head>
+  <body>
+	<table class="tokens">
+		<% for(var i=0; i<tokens.length; i++) {%>
+			<tr class="quote">
+				<a href="images/<%= tokens[i].image %>.jpg" data-lightbox="<%= tokens[i].image %>" data-title="Number 1">
+			  <td><%= tokens[i].no %></td>
+				<td><%= tokens[i].lodge %></td>
+				<td><%= tokens[i].province %></td>
+				<td><%= tokens[i].reverse %></td>
+				<td><%= tokens[i].size %></td>
+				<td><%= tokens[i].comments %></td>
+				</a>
+				<a href="images/<%= tokens[i].image %>back.jpg" data-lightbox="<%= tokens[i].image %>"></a>
+			</tr>
+		<% } %>
+	</table>
+
+
+  </body>
+</html>
