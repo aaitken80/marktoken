@@ -16,6 +16,12 @@
 
   </head>
   <body>
+
+	<form action="/tokens/find" method="POST">
+	  <input type="text" placeholder="search" name="search">
+	  <button type="submit">Search</button>
+	</form>
+
 	<table class="tokens">
 		<% for(var i=0; i<tokens.length; i++) {%>
 			<tr class="quote">

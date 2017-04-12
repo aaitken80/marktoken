@@ -6,25 +6,8 @@ var LocalStrategy = require('passport-local').Strategy;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	
-	var db = mongoUtil.getDb();
-	var cursor = db.collection('quotes').find()
-	
-	db.collection('quotes').find().toArray(function(err, results) {
-			
-		res.render('index', { title: 'Express', quotes: results, user: req.user });
-	})
 
-});
-
-router.get('/tokens', function(req, res, next) {
-
-	var db = mongoUtil.getDb();
-	var cursor = db.collection('quotes').find()
-	
-	db.collection('tokens').find().toArray(function(err, results) {
-		res.render('tokens', { title: 'Tokens', tokens: results });
-	})
+	res.render('index', { title: 'Express', user: req.user });
 });
 
 router.post('/quotes', (req, res) => {

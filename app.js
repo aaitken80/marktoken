@@ -12,8 +12,8 @@ var mongoose = require('mongoose');
 var flash = require('req-flash');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var guestbook = require('./routes/guestbook');
+var tokens = require('./routes/tokens');
 
 var app = express();
 
@@ -35,8 +35,8 @@ app.use(passport.session());
 app.use(flash());
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/guestbook', guestbook);
+app.use('/tokens', tokens);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
