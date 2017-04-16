@@ -7,9 +7,9 @@ var mongodb = require( 'mongodb' );
 router.get('/', function(req, res, next) {
 	
 	var db = mongoUtil.getDb();
-	var cursor = db.collection('guestbook').find()
+	var cursor = db.collection('guestbook').find().sort({postDate : -1});
 
-	db.collection('guestbook').find().toArray(function(err, results) {
+	cursor.toArray(function(err, results) {
 		res.render('guestbook', {comments: results, flash: req.flash()});
 	})
 
@@ -20,6 +20,8 @@ router.post('/postcomment', (req, res) => {
 	var db = mongoUtil.getDb();
 	
 	userInput = escape(req.body);
+
+	userInput["postDate"] = Date.now();
 	
 	db.collection('guestbook').save(userInput, (err, result) => {
 		if (err) return console.log(err)

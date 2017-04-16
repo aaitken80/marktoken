@@ -7,22 +7,7 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %> <%if(user != undefined){%> <span><%= user.username %></span> <%}%></p>
-	
-	<form action="/quotes" method="POST">
-	  <input type="text" placeholder="name" name="name">
-	  <input type="text" placeholder="quote" name="quote">
-	  <button type="submit">Submit</button>
-	</form>
-	
-	<ul class="quotes">
-		<% for(var i=0; i<quotes.length; i++) {%>
-			<li class="quote">
-			  <span><%= quotes[i].name %></span>
-			  <span><%= quotes[i].quote %></span>
-			</li>
-		<% } %>
-	</ul>
-	
+
 	<form action="/login" method="post">
 		<div>
 			<label>Username:</label>
