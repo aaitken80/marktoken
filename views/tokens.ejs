@@ -36,18 +36,18 @@
 		<ul class="pagination justify-content-center">
 			<li>
 			<% if(currentPage > 1) {%>
-			<a class="page-link" href="/tokens/<%=Number(currentPage)-1%>" aria-label="Previous">
+			<a class="page-link" href="/tokens/<%=Number(currentPage)-1%><% if(country) {%>?country=<%=country%><%}%>" aria-label="Previous">
 				<span aria-hidden="true">&laquo;</span>
 				<span class="sr-only">Previous</span>
 			</a>
 			<%}%>
 			</li>
 
-			<% if(currentPage > 1) {%><li class="page-item"><a class="page-link" href="/tokens/<%=Number(currentPage)-1%>"><%= Number(currentPage)-1 %></a></li><%}%>
-			<li class="page-item"><a class="page-link" href="/tokens/<%=Number(currentPage)%>"><%= currentPage %></a></li>
-			<% if(currentPage < pages) {%><li class="page-item"><a class="page-link" href="/tokens/<%=Number(currentPage)+1%>"><%= Number(currentPage)+1 %></a></li><%}%>
+			<% if(currentPage > 1) {%><li class="page-item"><a class="page-link" href="/tokens/<%=Number(currentPage)-1%><% if(country) {%>?country=<%=country%><%}%>"><%= Number(currentPage)-1 %></a></li><%}%>
+			<li class="page-item"><a class="page-link" href="/tokens/<%=Number(currentPage)%><% if(country) {%>?country=<%=country%><%}%>"><%= currentPage %></a></li>
+			<% if(currentPage < pages) {%><li class="page-item"><a class="page-link" href="/tokens/<%=Number(currentPage)+1%><% if(country) {%>?country=<%=country%><%}%>"><%= Number(currentPage)+1 %></a></li><%}%>
 
-			<a class="page-link" href="/tokens/<%=Number(currentPage)+1%>" aria-label="Next">
+			<a class="page-link" href="/tokens/<%=Number(currentPage)+1%><% if(country) {%>?country=<%=country%><%}%>" aria-label="Next">
 				<span aria-hidden="true">&raquo;</span>
 				<span class="sr-only">Next</span>
 			</a>

@@ -16,6 +16,10 @@ router.get('/:pageNo', function(req, res, next) {
     if(userInput && userInput.length >0){
         query = { $text: { $search: "\"" + userInput +  "\"" } };
     }
+  
+    if(req.query.country){
+        query.country = escape(req.query.country);
+    }
 
 	var db = mongoUtil.getDb();
 	var cursor = db.collection('tokens').find(query).skip((req.params.pageNo -1)*12).limit(12);
@@ -23,7 +27,7 @@ router.get('/:pageNo', function(req, res, next) {
     db.collection('tokens').find(query).count(function(err, pageCount){
 
         cursor.toArray(function(err, results) {
-            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/12), currentPage : req.params.pageNo, tokens: results });
+            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/12), currentPage : req.params.pageNo, tokens: results, country: escape(req.query.country) });
         })
 
     });
@@ -36,6 +40,10 @@ router.get('/', function(req, res, next) {
 
     if(userInput && userInput.length >0){
         query = { $text: { $search: "\"" + userInput +  "\"" } };
+    } 
+
+    if(req.query.country){
+        query.country = escape(req.query.country);
     }
 
 	var db = mongoUtil.getDb();
@@ -43,7 +51,7 @@ router.get('/', function(req, res, next) {
 	
     db.collection('tokens').find(query).count(function(err, pageCount){
         cursor.toArray(function(err, results) {
-            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/12), currentPage: 1, tokens: results });
+            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/12), currentPage: 1, tokens: results, country: escape(req.query.country)});
         })
     });
 
