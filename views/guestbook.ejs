@@ -1,66 +1,101 @@
-<html>
-  <head>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+<!DOCTYPE html>
+<html lang="en">
 
-	<script
-		  src="https://code.jquery.com/jquery-3.2.1.min.js"
-		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-		  crossorigin="anonymous">
+<head>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<script type="text/javascript">
+		function recaptcha_callback(){
+			document.getElementById("guestCommentForm").submit();
+		}
 	</script>
 
-<script>
+	<% include partials/head %>
+</head>
 
-	$(document).ready(function(){
-			jQuery.each( [ "put", "delete" ], function( i, method ) {
-				jQuery[ method ] = function( url, data, callback, type ) {
-					if ( jQuery.isFunction( data ) ) {
-						type = type || callback;
-						callback = data;
-						data = undefined;
-					}
-			
-					return jQuery.ajax({
-						url: url,
-						type: method,
-						dataType: type,
-						data: data,
-						success: callback
+<body class="container">
+
+	<header>
+		<% include partials/header %>
+	</header>
+
+	<section>
+		<div class="container py-3">
+			<form id='guestCommentForm' action="/guestbook/postcomment" method="POST">
+				<div class="form-group">
+					<label for="comment">Comment</label>
+					<textarea class="form-control" name="comment" id="comment" rows="3" placeholder="Please leave a comment"></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" name="name" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name">
+					<small id="nameHelp" class="form-text text-muted">Please enter your name</small>
+				</div>
+
+				<!--<button type="submit" class="btn btn-primary">Submit</button> -->
+				<button
+					class="g-recaptcha btn btn-primary"
+					data-sitekey="6LdGER4UAAAAAP18gK229xscfIDjxn9uq3yf3VAo"
+					data-callback='recaptcha_callback'>
+					Submit
+				</button>
+			</form>
+
+			<% for(var i=0; i<comments.length; i++) {%>
+				<div class="card">
+					<div class="row ">
+						<div class="col-md-8 px-3">
+							<div class="card-block px-3">
+								<h4 class="card-title">
+									<%= comments[i].name %>
+								</h4>
+								<p class="card-text">
+									<%= comments[i].comment %>
+								</p>
+
+								<footer class="blockquote-footer text-muted">
+									<%= moment(comments[i].postDate).format('Do MMMM, YYYY'); %>
+								</footer>
+								
+								<%if(user != undefined){%><button type="button" class="deleteButton btn btn-danger float-sm-right" value="<%= comments[i]._id %>">Delete Message</button> <%}%>
+							</div>
+						</div>
+					</div>
+				</div>
+				<% } %>
+		</div>
+	</section>
+	<footer>
+		<% include partials/footer %>
+
+			<script>
+				$(document).ready(function () {
+					jQuery.each(["put", "delete"], function (i, method) {
+						jQuery[method] = function (url, data, callback, type) {
+							if (jQuery.isFunction(data)) {
+								type = type || callback;
+								callback = data;
+								data = undefined;
+							}
+
+							return jQuery.ajax({
+								url: url,
+								type: method,
+								dataType: type,
+								data: data,
+								success: callback
+							});
+						};
 					});
-				};
-			});
 
-			$( ".deleteButton" ).click(function() {
-				$.delete('/guestbook/postcomment', {id:this.value}, function(result){
-					window.location=result;
-				})
-			});
-	});
+					$(".deleteButton").click(function () {
+						$.delete('/guestbook/postcomment', { id: this.value }, function (result) {
+							window.location = result;
+						})
+					});
+				});
+			</script>
+	</footer>
+</body>
 
-</script>
-
-  </head>
-  <body>
-
-	<% if ( flash && flash.length > 0 ) { %>
-		<p>Message: <%= flash %> </p>
-	<% } %>
-
-
-	<form action="/guestbook/postcomment" method="POST">
-	  <input type="text" placeholder="name" name="name">
-	  <input type="textarea" placeholder="Please leave a comment" name="comment">
-	  <button type="submit">Submit</button>
-	</form>
-	
-	<ul class="comments">
-		<% for(var i=0; i<comments.length; i++) {%>
-			<li class="quote">
-			  <span><%= comments[i].name %></span>
-			  <span><%= comments[i].comment %></span>
-				<button type="button" class="deleteButton" value="<%= comments[i]._id %>">Delete</button>
-			</li>
-		<% } %>
-	</ul>
-	
-  </body>
 </html>

@@ -1,33 +1,21 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-	<link rel='stylesheet' href='/stylesheets/style.css' />
-	<link rel='stylesheet' href='/stylesheets/lightbox.css' />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	
-	<script
-		  src="https://code.jquery.com/jquery-3.2.1.min.js"
-		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-		  crossorigin="anonymous">
-	</script>
-	
-	<script src="/javascripts/lightbox.js"></script>
+<html lang="en">
 
-  </head>
-  <body>
+<head>
+	<% include partials/head %>
+</head>
 
-	<form action="/tokens" method="GET">
-	  <input type="text" placeholder="search" name="search">
-	  <button type="submit">Search</button>
-	</form>
+<body class="container">
+	<header>
+		<% include partials/header %>
+	</header>
 
-<div class="container">
+	<div class="container">
 
 		<div class="row">
 			<% for(var i=0; i<tokens.length; i++) {%>
 				<div class="col-lg-3 col-md-4 col-xs-6 thumb">
-						<a class="thumbnail" href="/images/<%= tokens[i].image %>.jpg" data-lightbox="<%= tokens[i].image %>" data-title="<%= tokens[i].lodge %>">
+					<a class="thumbnail" href="/images/<%= tokens[i].image %>.jpg" data-lightbox="<%= tokens[i].image %>" data-title="<%= tokens[i].lodge %>">
 						
 								<img class="img-fluid" src="/images/<%= tokens[i].image %>.jpg" alt="">
 								<div class="clearfix"></div>
@@ -36,33 +24,42 @@
 									<div class="span12"><%= tokens[i].province %></div>
 								</div>
 						</a>
-						<a href="/images/<%= tokens[i].image %>back.jpg" data-lightbox="<%= tokens[i].image %>" data-title="<%= tokens[i].lodge %>"></a>
+					<a href="/images/<%= tokens[i].image %>back.jpg" data-lightbox="<%= tokens[i].image %>" data-title="<%= tokens[i].lodge %>"></a>
 				</div>
-			<% } %>
+				<% } %>
 		</div>
-</div>	
-<div class="span12"><% if(currentPage > 1) {%><a href="/tokens/<%=Number(currentPage)-1%>" >Previous</a><%}%>Page <%= currentPage %> of <%= pages %><a href="/tokens/<%=Number(currentPage)+1%>" >Next</a></div>
-<!--
-	<table class="tokens">
-		<% for(var i=0; i<tokens.length; i++) {%>
-			<tr class="quote">
-				<a href="images/<%= tokens[i].image %>.jpg" data-lightbox="<%= tokens[i].image %>" data-title="Number 1">
-			  <td><%= tokens[i].no %></td>
-				<td><%= tokens[i].lodge %></td>
-				<td><%= tokens[i].province %></td>
-				<td><%= tokens[i].reverse %></td>
-				<td><%= tokens[i].size %></td>
-				<td><%= tokens[i].comments %></td>
-				</a>
-				<a href="images/<%= tokens[i].image %>back.jpg" data-lightbox="<%= tokens[i].image %>"></a>
-			</tr>
-		<% } %>
-	</table>
--->
+	</div>
 
-	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	<div>Showing page <%=currentPage%> of <%=pages%></div>
 
-  </body>
+	<nav aria-label="Pages">
+		<ul class="pagination justify-content-center">
+			<li>
+			<% if(currentPage > 1) {%>
+			<a class="page-link" href="/tokens/<%=Number(currentPage)-1%>" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<%}%>
+			</li>
+
+			<% if(currentPage > 1) {%><li class="page-item"><a class="page-link" href="/tokens/<%=Number(currentPage)-1%>"><%= Number(currentPage)-1 %></a></li><%}%>
+			<li class="page-item"><a class="page-link" href="/tokens/<%=Number(currentPage)%>"><%= currentPage %></a></li>
+			<% if(currentPage < pages) {%><li class="page-item"><a class="page-link" href="/tokens/<%=Number(currentPage)+1%>"><%= Number(currentPage)+1 %></a></li><%}%>
+
+			<a class="page-link" href="/tokens/<%=Number(currentPage)+1%>" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+				<span class="sr-only">Next</span>
+			</a>
+			</li>
+		</ul>
+	</nav>
+
+
+
+	<footer>
+		<% include partials/footer %>
+	</footer>
+</body>
+
 </html>

@@ -56,7 +56,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-mongoose.connect('mongodb://<username>:<password>@ds159050.mlab.com:59050/marktoken');
+mongoose.connect(mongoUtil.getMongoURI());
 
 var Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId;

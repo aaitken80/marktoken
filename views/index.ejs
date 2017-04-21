@@ -1,26 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+		<% include partials/head %>
   </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %> <%if(user != undefined){%> <span><%= user.username %></span> <%}%></p>
+  <body class="container">
+    <header>
+        <% include partials/header %>
+    </header>
 
-	<form action="/login" method="post">
-		<div>
-			<label>Username:</label>
-			<input type="text" name="username"/>
-		</div>
-		<div>
-			<label>Password:</label>
-			<input type="password" name="password"/>
-		</div>
-		<div>
-			<input type="submit" value="Log In"/>
-		</div>
-	</form>
+    <main>
+        <div class="jumbotron">
+            <h1>Welcome</h1>
+            <p>Hi, my name is John Aitken. I am a Scottish Freemason and collect Masonic tokens. I have a large collection of over 800 Scottish tokens and some from other countries. I have posted the lists for each country I have and these can be accessed by clicking on the token keystone. I am a member of the Mark Token Collectors Club (M.T.C.C.). I will buy, sell, or preferably, swap tokens. I have included my e-mail address below for any enquiries about tokens you or I have.  I have included images of my tokens for you to look at on the site, I am constantly updating the site with new acquisitions. The blue highlights are the links to the available photographs.</p>
+        </div>
+    </main>
+
+
 	
+    <footer>
+        <% include partials/footer %>
+    </footer>
   </body>
 </html>
