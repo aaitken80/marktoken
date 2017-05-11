@@ -4,6 +4,10 @@ var mongoUtil = require( '../bin/mongoUtil' );
 var escape = require('mongo-escape').escape;
 var mongodb = require( 'mongodb' );
 
+var pageSize = 12;
+var country;
+var search;
+
 router.get('/:pageNo', function(req, res, next) {
 
     if(!req.params.pageNo){
@@ -13,22 +17,35 @@ router.get('/:pageNo', function(req, res, next) {
     var userInput = escape(req.query.search);
     var query = {};
 
-    if(userInput && userInput.length >0){
-        query = { $text: { $search: "\"" + userInput +  "\"" } };
+    if(search){
+        query = search;
     }
   
     if(req.query.country){
-        query.country = escape(req.query.country);
+        country = escape(req.query.country);
+    }
+
+    if(country){
+        query.country = country;
+    }
+
+
+    if(req.query.pageSize){
+        if(escape(req.query.pageSize) === "All"){
+            pageSize=0;
+        } else {
+            pageSize = Number(escape(req.query.pageSize));
+        } 
     }
 
 	var db = mongoUtil.getDb();
-	var cursor = db.collection('tokens').find(query).skip((req.params.pageNo -1)*12).limit(12);
+	var cursor = db.collection('tokens').find(query).skip((req.params.pageNo -1)*pageSize).limit(pageSize);
     
     db.collection('tokens').find(query).count(function(err, pageCount){
 
         cursor.toArray(function(err, results) {
-            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/12), currentPage : req.params.pageNo, tokens: results, country: escape(req.query.country) });
-        })
+            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/pageSize), currentPage : req.params.pageNo, tokens: results, country: escape(req.query.country) });
+        });
 
     });
 });
@@ -39,32 +56,40 @@ router.get('/', function(req, res, next) {
     var query = {};
 
     if(userInput && userInput.length >0){
-        query = { $text: { $search: "\"" + userInput +  "\"" } };
+        search = { $text: { $search: "\"" + userInput +  "\"" } };
     } 
 
+    if(search && userInput){
+        query = { $text: { $search: "\"" + userInput +  "\"" } };
+    } else {
+        search = undefined;
+    }
+
     if(req.query.country){
-        query.country = escape(req.query.country);
+        country = escape(req.query.country);
+    }
+
+    if(country){
+        query.country = country;
+    }
+
+    
+    if(req.query.pageSize){
+        if(escape(req.query.pageSize) === "All"){
+            pageSize=0;
+        } else {
+            pageSize = Number(escape(req.query.pageSize));
+        } 
     }
 
 	var db = mongoUtil.getDb();
-	var cursor = db.collection('tokens').find(query).limit(12);
+	var cursor = db.collection('tokens').find(query).limit(pageSize);
 	
     db.collection('tokens').find(query).count(function(err, pageCount){
         cursor.toArray(function(err, results) {
-            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/12), currentPage: 1, tokens: results, country: escape(req.query.country)});
-        })
+            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/pageSize), currentPage: 1, tokens: results, country: escape(req.query.country)});
+        });
     });
-
-});
-
-router.get('/scottish', function(req, res, next) {
-
-	var db = mongoUtil.getDb();
-	var cursor = db.collection('tokens').find({country : "Scottish"})
-	
-	cursor.toArray(function(err, results) {
-		res.render('tokens', { title: 'Tokens', tokens: results });
-	})
 
 });
 
