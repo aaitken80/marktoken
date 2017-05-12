@@ -17,11 +17,11 @@
 					<a href="#" data-toggle="modal" data-target="#modal<%= tokens[i]._id %>">
 						<img class="img-fluid" src="/images/<%= tokens[i].image %>.jpg" alt="">
 						<div class="clearfix"></div>
-						<div>
-							<div class="span12"><%= tokens[i].no %>  <%= tokens[i].lodge %></div>
-							<div class="span12"><%= tokens[i].province %></div>
-						</div>
 					</a>
+					<div>
+						<div class="span12"><%= tokens[i].no %>  <%= tokens[i].lodge %></div>
+						<div class="span12"><%= tokens[i].province %></div>
+					</div>
 					<div class="modal fade" id="modal<%= tokens[i]._id %>" tabindex="-1" role="dialog">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
