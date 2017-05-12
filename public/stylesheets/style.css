@@ -25,3 +25,11 @@ img:after {
   display: block;
   font-size: 12px;
 }
+
+.bg-navbar{
+  background-color: rgb(0, 180, 255);
+}
+
+.nav-item{
+  font-size: 1.5em;
+}

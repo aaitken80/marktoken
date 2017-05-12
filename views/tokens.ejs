@@ -9,6 +9,7 @@
 	<header>
 		<% include partials/header %>
 	</header>
+	<br/><br/>
 	<div class="container">
 		<div class="row">
 			<% for(var i=0; i<tokens.length; i++) {%>
@@ -70,7 +71,12 @@
 	</div>
 
 	<div>Showing page <%=currentPage%> of <%=pages%></br>
-	Images per page <a href="/tokens/<%=Number(currentPage)%><% if(country) {%>?country=<%=country%><%}%>&pageSize=12">12</a> <a href="/tokens/<%=Number(currentPage)%><% if(country) {%>?country=<%=country%><%}%>&pageSize=24">24</a> <a href="/tokens/<%=Number(currentPage)%><% if(country) {%>?country=<%=country%><%}%>&pageSize=All">All</a>
+
+	<% if(country) {%>
+		Images per page <a href="/tokens/<%=Number(currentPage)%>?country=<%=country%>&pageSize=12">12</a> <a href="/tokens/<%=Number(currentPage)%>?country=<%=country%>&pageSize=24">24</a> <a href="/tokens/<%=Number(currentPage)%>?country=<%=country%>&pageSize=All">All</a>
+	<%} else {%>
+		Images per page <a href="/tokens/<%=Number(currentPage)%>?pageSize=12">12</a> <a href="/tokens/<%=Number(currentPage)%>?pageSize=24">24</a> <a href="/tokens/<%=Number(currentPage)%>?pageSize=All">All</a>
+	<%} %>
 	</div>
 
 	<nav aria-label="Pages">
