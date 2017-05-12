@@ -18,9 +18,9 @@
 						<img class="img-fluid" src="/images/<%= tokens[i].image %>.jpg" alt="">
 						<div class="clearfix"></div>
 					</a>
-					<div>
-						<div class="span12"><%= tokens[i].no %>  <%= tokens[i].lodge %></div>
-						<div class="span12"><%= tokens[i].province %></div>
+					<div class="text-center">
+						<div><%= tokens[i].no %>  <%= tokens[i].lodge %></div>
+						<div><%= tokens[i].province %></div>
 					</div>
 					<div class="modal fade" id="modal<%= tokens[i]._id %>" tabindex="-1" role="dialog">
 						<div class="modal-dialog" role="document">
@@ -28,7 +28,7 @@
 								<div class="modal-header">
 									<h5 class="modal-title" id="exampleModalLabel">
 										<%= tokens[i].no %>
-											<%= tokens[i].lodge %>
+										<%= tokens[i].lodge %>
 									</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -58,9 +58,14 @@
 											<span class="sr-only">Next</span>
 										</a>
 									</div>
-									<h6>
-										<%= tokens[i].comments %>
-									</h6>
+									<div>
+										<ul class="list-group">
+											<li class="list-group-item">Province: <%= tokens[i].province %></li>
+											<li class="list-group-item">Size: <%= tokens[i].size %></li>
+											<li class="list-group-item">Reverse: <%= tokens[i].reverse %></li>
+											<li class="list-group-item"><%= tokens[i].comments %></li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
