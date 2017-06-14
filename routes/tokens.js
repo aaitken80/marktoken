@@ -29,13 +29,19 @@ router.get('/:pageNo', function(req, res, next) {
         query.country = country;
     }
 
-
-    if(req.query.pageSize){
-        if(escape(req.query.pageSize) === "All"){
-            pageSize=0;
-        } else {
-            pageSize = Number(escape(req.query.pageSize));
-        } 
+    if(req.query.list && req.query.list === "list"){
+        pageSize=0
+    } else {
+        if(req.query.list === "grid"){
+            pageSize = 12;
+        }
+        if(req.query.pageSize){
+            if(escape(req.query.pageSize) === "All"){
+                pageSize=0;
+            } else {
+                pageSize = Number(escape(req.query.pageSize));
+            } 
+        }
     }
 
 	var db = mongoUtil.getDb();
@@ -44,7 +50,7 @@ router.get('/:pageNo', function(req, res, next) {
     db.collection('tokens').find(query).count(function(err, pageCount){
 
         cursor.toArray(function(err, results) {
-            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/pageSize), currentPage : req.params.pageNo, tokens: results, country: escape(req.query.country) });
+            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/pageSize), currentPage : req.params.pageNo, tokens: results, country: escape(req.query.country), list: req.query.list});
         });
 
     });
@@ -74,12 +80,19 @@ router.get('/', function(req, res, next) {
     }
 
     
-    if(req.query.pageSize){
-        if(escape(req.query.pageSize) === "All"){
-            pageSize=0;
-        } else {
-            pageSize = Number(escape(req.query.pageSize));
-        } 
+    if(req.query.list && req.query.list === "list"){
+        pageSize=0
+    } else {
+        if(req.query.list === "grid"){
+            pageSize = 12;
+        }
+        if(req.query.pageSize){
+            if(escape(req.query.pageSize) === "All"){
+                pageSize=0;
+            } else {
+                pageSize = Number(escape(req.query.pageSize));
+            } 
+        }
     }
 
 	var db = mongoUtil.getDb();
@@ -87,7 +100,7 @@ router.get('/', function(req, res, next) {
 	
     db.collection('tokens').find(query).count(function(err, pageCount){
         cursor.toArray(function(err, results) {
-            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/pageSize), currentPage: 1, tokens: results, country: escape(req.query.country)});
+            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/pageSize), currentPage: 1, tokens: results, country: escape(req.query.country), list: req.query.list});
         });
     });
 
