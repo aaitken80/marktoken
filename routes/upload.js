@@ -14,8 +14,8 @@ router.post('/', function (req, res) {
         return res.status(400).send('No files were uploaded.');
 
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file 
-    let obverseImage = req.files.obverseImage;
-    let reverseImage = req.files.reverseImage;
+    var obverseImage = req.files.obverseImage;
+    var reverseImage = req.files.reverseImage;
 
     var db = mongoUtil.getDb();
 
