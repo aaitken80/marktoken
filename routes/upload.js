@@ -4,6 +4,8 @@ var request = require('request');
 var mongoUtil = require('../bin/mongoUtil');
 var escape = require('mongo-escape').escape;
 var mongodb = require('mongodb');
+var path = require('path');
+var uploadDir = path.join(__dirname, '../public/images');
 
 router.get('/', function (req, res, next) {
     res.render('uploadtoken', { title: 'Upload', user: req.user });
@@ -30,14 +32,20 @@ router.post('/', function (req, res) {
     userInput.obverseImage = obverseImage.name;
     userInput.reverseImage = reverseImage.name;
 
+    var obverseUploadPath = path.join(uploadDir, obverseImage.name);
+    console.log('Obverse Upload Path ' + obverseUploadPath);
+
+    var reverseUploadPath = path.join(uploadDir, reverseImage.name);
+    console.log('Reverse Upload Path ' + reverseUploadPath);
+
     // Use the mv() method to place the file somewhere on your server 
-    obverseImage.mv('../public/images/' + obverseImage.name, function (err) {
+    obverseImage.mv(obverseUploadPath, function (err) {
         if (err)
             return res.status(500).send(err);
         //res.send('File uploaded!');
     });
 
-    reverseImage.mv('../public/images/' + reverseImage.name, function (err) {
+    reverseImage.mv(reverseUploadPath, function (err) {
         if (err)
             return res.status(500).send(err);
         //res.send('File uploaded!');
