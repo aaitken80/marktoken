@@ -10,10 +10,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoUtil = require( './bin/mongoUtil' );
 var mongoose = require('mongoose');
 var flash = require('req-flash');
+var fileUpload = require('express-fileupload');
 
 var index = require('./routes/index');
 var guestbook = require('./routes/guestbook');
 var tokens = require('./routes/tokens');
+var upload = require('./routes/upload');
 
 var app = express();
 
@@ -34,9 +36,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use(fileUpload());
+
 app.use('/', index);
 app.use('/guestbook', guestbook);
 app.use('/tokens', tokens);
+app.use('/upload', upload);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

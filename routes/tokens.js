@@ -45,12 +45,12 @@ router.get('/:pageNo', function(req, res, next) {
     }
 
 	var db = mongoUtil.getDb();
-	var cursor = db.collection('tokens').find(query).skip((req.params.pageNo -1)*pageSize).limit(pageSize);
+	var cursor = db.collection('tokens').find(query).sort({no: 1}).skip((req.params.pageNo -1)*pageSize).limit(pageSize);
     
-    db.collection('tokens').find(query).count(function(err, pageCount){
+    db.collection('tokens').find(query).sort({no: 1}).count(function(err, pageCount){
 
         cursor.toArray(function(err, results) {
-            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/pageSize), currentPage : req.params.pageNo, tokens: results, country: escape(req.query.country), list: req.query.list});
+            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/pageSize), currentPage : req.params.pageNo, tokens: results, country: escape(req.query.country), list: req.query.list, user: req.user});
         });
 
     });
@@ -96,11 +96,11 @@ router.get('/', function(req, res, next) {
     }
 
 	var db = mongoUtil.getDb();
-	var cursor = db.collection('tokens').find(query).limit(pageSize);
+	var cursor = db.collection('tokens').find(query).sort({no: 1}).limit(pageSize);
 	
-    db.collection('tokens').find(query).count(function(err, pageCount){
+    db.collection('tokens').find(query).sort({no: 1}).count(function(err, pageCount){
         cursor.toArray(function(err, results) {
-            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/pageSize), currentPage: 1, tokens: results, country: escape(req.query.country), list: req.query.list});
+            res.render('tokens', { title: 'Tokens', pages:Math.ceil(pageCount/pageSize), currentPage: 1, tokens: results, country: escape(req.query.country), list: req.query.list, user: req.user});
         });
     });
 

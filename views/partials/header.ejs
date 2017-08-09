@@ -2,7 +2,7 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a href="/" class="navbar-brand">Marktoken</a>
+    <a href="/" class="navbar-brand">Marktoken</a><%if(user != undefined){%><span><%=user.username%></span><%}%>
     <div class="navbar-collapse collapse justify-content-between" id="collapsingNavbar2">
         <div><!--placeholder to evenly space flexbox items and center links--></div>
         <ul class="navbar-nav">
@@ -31,6 +31,11 @@
             <li class="nav-item">
               <a class="nav-link" href="/guestbook">Guestbook</a>
             </li>
+            <%if(user != undefined){%>
+              <li class="nav-item">
+                <a class="nav-link" href="/upload">Add Token</a>
+              </li>
+            <%}%>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="/tokens" method="GET">
           <input class="form-control mr-sm-2" type="text" placeholder="search" name="search">

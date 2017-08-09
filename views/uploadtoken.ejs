@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include partials/head %>
+</head>
+
+<body class="container">
+  <header>
+    <% include partials/header %>
+  </header>
+    <br/>
+    <br/>
+    <form ref='uploadForm' 
+      id='uploadForm' 
+      action='/upload' 
+      method='post' 
+      encType="multipart/form-data">
+
+        <div class="form-group">
+            <label for="no">Lodge Details</label>
+            <input type="text" class="form-control" name="no" id="no" placeholder="Lodge Number">
+            <input type="text" class="form-control" name="lodge" id="lodge" placeholder="Lodge Name">
+            <input type="text" class="form-control" name="province" id="province" placeholder="Province">
+
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select class="form-control" id="country" name="country">
+                <option>Scottish</option>
+                <option>English</option>
+                <option>Irisg</option>
+                <option>USA</option>
+                <option>France</option>
+                <option>Germany</option>
+                <option>Switzerland</option>
+                <option>Netherlands</option>
+                <option>Australia</option>
+                <option>Other</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="reverse">Token Details</label>
+            <input type="text" class="form-control" name="reserve" id="reverse" placeholder="reverse"/>
+            <input type="text" class="form-control" name="shape" id="shape" placeholder="shape"/>
+
+            <div class="form-group">
+                <label for="comments">Comments</label>
+                <textarea class="form-control" name="comments" id="comments" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="obverseImage">Obverse</label>
+                <input type="file" class="form-control-file" name="obverseImage" id="obverseImage" />
+
+                <label for="reverseImage">Reverse</label>
+                <input type="file" class="form-control-file" name="reverseImage" id="reverseImage" />
+            </div>
+
+        </div>
+        <%if(user != undefined){%>
+          <input type='submit' value='Upload!' />
+        <%}%>
+    </form>    
+
+  <footer>
+    <% include partials/footer %>
+  </footer>
+</body>
+
+</html>
