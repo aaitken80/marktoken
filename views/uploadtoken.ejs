@@ -19,23 +19,23 @@
 
         <div class="form-group">
             <label for="no">Lodge Details</label>
-            <input type="text" class="form-control" name="no" id="no" placeholder="Lodge Number">
-            <input type="text" class="form-control" name="lodge" id="lodge" placeholder="Lodge Name">
-            <input type="text" class="form-control" name="province" id="province" placeholder="Province">
+            <input type="text" class="form-control" name="no" id="no" placeholder="Lodge Number" value="<%=token.no%>">
+            <input type="text" class="form-control" name="lodge" id="lodge" placeholder="Lodge Name" value="<%=token.lodge%>">
+            <input type="text" class="form-control" name="province" id="province" placeholder="Province" value="<%=token.province%>">
 
             <div class="form-group">
                 <label for="country">Country</label>
-                <select class="form-control" id="country" name="country">
-                <option>Scottish</option>
-                <option>English</option>
-                <option>Irisg</option>
-                <option>USA</option>
-                <option>France</option>
-                <option>Germany</option>
-                <option>Switzerland</option>
-                <option>Netherlands</option>
-                <option>Australia</option>
-                <option>Other</option>
+                <select class="form-control" id="country" name="country" >
+                  <option <%if(token.country == "Scottish"){%>selected<%}%>>Scottish</option>
+                  <option <%if(token.country == "English"){%>selected<%}%>>English</option>
+                  <option <%if(token.country == "Irish"){%>selected<%}%>>Irish</option>
+                  <option <%if(token.country == "USA"){%>selected<%}%>>USA</option>
+                  <option <%if(token.country == "France"){%>selected<%}%>>France</option>
+                  <option <%if(token.country == "Germany"){%>selected<%}%>>Germany</option>
+                  <option <%if(token.country == "Switzerland"){%>selected<%}%>>Switzerland</option>
+                  <option <%if(token.country == "Netherlands"){%>selected<%}%>>Netherlands</option>
+                  <option <%if(token.country == "Australia"){%>selected<%}%>>Australia</option>
+                  <option <%if(token.country == "Other"){%>selected<%}%>>Other</option>
                 </select>
             </div>
 
@@ -43,24 +43,27 @@
 
         <div class="form-group">
             <label for="reverse">Token Details</label>
-            <input type="text" class="form-control" name="reserve" id="reverse" placeholder="reverse"/>
-            <input type="text" class="form-control" name="shape" id="shape" placeholder="shape"/>
+            <input type="text" class="form-control" name="reserve" id="reverse" placeholder="reverse" value="<%=token.reverse%>"/>
+            <input type="text" class="form-control" name="shape" id="shape" placeholder="shape" value="<%=token.shape%>"/>
 
             <div class="form-group">
                 <label for="comments">Comments</label>
-                <textarea class="form-control" name="comments" id="comments" rows="3"></textarea>
+                <textarea class="form-control" name="comments" id="comments" rows="3"><%=token.comments%></textarea>
             </div>
 
             <div class="form-group">
                 <label for="obverseImage">Obverse</label>
+                <div>filename : <%=token.obverseImage%></div>
                 <input type="file" class="form-control-file" name="obverseImage" id="obverseImage" />
 
                 <label for="reverseImage">Reverse</label>
+                <div>filename : <%=token.reverseImage%></div>
                 <input type="file" class="form-control-file" name="reverseImage" id="reverseImage" />
             </div>
 
         </div>
         <%if(user != undefined){%>
+          <input type="hidden" id="tokeId" name="tokenId" value="<%=token._id%>" />
           <input type='submit' value='Upload!' />
         <%}%>
     </form>    

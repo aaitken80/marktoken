@@ -50,6 +50,8 @@
 						<td><a href="#" data-toggle="modal" data-target="#modal<%= tokens[i]._id %>"><%= tokens[i].lodge %></a></td>
 						<td><%= tokens[i].province %></td>
 						<td><%= tokens[i].comments %></td>
+						<td><%if(user != undefined){%><a href="/upload?id=<%= tokens[i]._id %>">edit</a><%}%></td>
+
 
 						<div class="modal fade" id="modal<%= tokens[i]._id %>" tabindex="-1" role="dialog">
 							<div class="modal-dialog" role="document">
@@ -71,11 +73,11 @@
 											</ol>
 											<div class="carousel-inner" role="listbox">
 												<div class="carousel-item active">
-													<img class="rounded mx-auto d-block" src="/images/<%= tokens[i].obverseImage %>" alt="First slide">
+													<img class="rounded mx-auto d-block img-fluid" src="/images/<%= tokens[i].obverseImage %>" alt="First slide">
 
 												</div>
 												<div class="carousel-item">
-													<img class="rounded mx-auto d-block" src="/images/<%= tokens[i].reverseImage %>" alt="Second slide">
+													<img class="rounded mx-auto d-block img-fluid" src="/images/<%= tokens[i].reverseImage %>" alt="Second slide">
 												</div>
 											</div>
 											<a class="carousel-control-prev" href="#carousel<%= tokens[i]._id %>" role="button" data-slide="prev">
@@ -149,11 +151,10 @@
 											</ol>
 											<div class="carousel-inner" role="listbox">
 												<div class="carousel-item active">
-													<img class="rounded mx-auto d-block" src="/images/<%= tokens[i].obverseImage %>" alt="First slide">
-
+													<img class="rounded mx-auto d-block img-fluid" src="/images/<%= tokens[i].obverseImage %>" alt="First slide">
 												</div>
 												<div class="carousel-item">
-													<img class="rounded mx-auto d-block" src="/images/<%= tokens[i].reverseImage %>" alt="Second slide">
+													<img class="rounded mx-auto d-block img-fluid" src="/images/<%= tokens[i].reverseImage %>" alt="Second slide">
 												</div>
 											</div>
 											<a class="carousel-control-prev" href="#carousel<%= tokens[i]._id %>" role="button" data-slide="prev">

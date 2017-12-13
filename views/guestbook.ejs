@@ -32,6 +32,12 @@
 					<small id="nameHelp" class="form-text text-muted">Please enter your name</small>
 				</div>
 
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="text" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email address">
+					<small id="emailHelp" class="form-text text-muted">Please enter your email address</small>
+				</div>
+
 				<!--<button type="submit" class="btn btn-primary">Submit</button> -->
 				<button
 					class="g-recaptcha btn btn-primary"
@@ -51,6 +57,11 @@
 								</h4>
 								<p class="card-text">
 									<%= comments[i].comment %>
+									<%if(user != undefined){%>
+										<br/>
+										<br/>
+										<a href="mailto:<%= comments[i].email %>" target="_top"><%= comments[i].email %></a>
+ 									<%}%>
 								</p>
 
 								<footer class="blockquote-footer text-muted">

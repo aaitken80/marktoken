@@ -57,11 +57,11 @@ router.delete('/postcomment', (req, res) => {
 
 	db.collection('guestbook').findOneAndDelete({ "_id": new mongodb.ObjectID(req.body.id) },
 		(err, result) => {
-			if (err) return res.send(500, err)
+			if (err) return res.send(500, err);
 
 			req.flash('success', 'Message Deleted');
 			res.send('/guestbook');
-		})
+		});
 })
 
 module.exports = router;
