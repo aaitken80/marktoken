@@ -16,6 +16,7 @@ var index = require('./routes/index');
 var guestbook = require('./routes/guestbook');
 var tokens = require('./routes/tokens');
 var upload = require('./routes/upload');
+var deleteToken = require('./routes/deleteToken');
 
 var app = express();
 
@@ -42,6 +43,7 @@ app.use('/', index);
 app.use('/guestbook', guestbook);
 app.use('/tokens', tokens);
 app.use('/upload', upload);
+app.use('/deleteToken', deleteToken);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

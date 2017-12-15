@@ -134,13 +134,11 @@ router.post('/', function (req, res) {
         obverseImage.mv(obverseUploadPath, function (err) {
             if (err)
                 return res.status(500).send(err);
-            //res.send('File uploaded!');
         });
 
         reverseImage.mv(reverseUploadPath, function (err) {
             if (err)
                 return res.status(500).send(err);
-            //res.send('File uploaded!');
         });
 
         db.collection('tokens').save(userInput, (err, result) => {
