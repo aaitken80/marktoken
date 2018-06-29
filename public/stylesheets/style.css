@@ -37,3 +37,7 @@ img:after {
 .carousel-inner > .carousel-item > img, .carousel-inner > .carousel-item > a > img {
     height: 400px;
 }
+
+.signature{
+  font-family: 'Caveat', cursive;
+}
